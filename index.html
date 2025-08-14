@@ -1,0 +1,74 @@
+<h1 id="highly-recommended-programs">Highly Recommended Programs</h1>
+<ul>
+<li><code>mpd</code>: Music Player Daemon, the actual daemon streaming
+music, managing playlists queues etc… (is hosted over a port <span
+class="math inline">⟹</span> can port forward)</li>
+<li><code>mpc</code>: Music Player Client, a client that connects to
+mpd</li>
+<li><code>ncmpcpp</code>: NCurses Music Player Client Plus Plus, a
+wrapper around <code>mpc</code> I believe…</li>
+</ul>
+<h1 id="setup-of-client-side">Setup Of Client Side</h1>
+<h2 id="mpc-highly-recommend"><code>mpc</code> (highly recommend)</h2>
+<p>Latency relatively tame. Recommnd because <code>mpc</code> is
+tailor-made for <code>mpd</code>.</p>
+<p>To connect (where <code>$SERVER_IP</code> is an environmental
+variable, or just your ip, domain name, etc…):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpc</span> add http://<span class="va">$SERVER_IP</span>:8000</span></code></pre></div>
+<p>Now the server should be in your playlist. We can use
+<code>ncmpcpp</code> to navigate to the server and play it as if you’re
+playing a regular song.</p>
+<h2 id="mpv-second-best"><code>mpv</code> (second best)</h2>
+<p>This settings seems to give the best latency.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mpv</span> http://<span class="va">$SERVER_IP</span>:8000   <span class="at">--no-cache</span>   <span class="at">--untimed</span>   <span class="at">--no-audio-display</span>   <span class="at">--gapless-audio</span><span class="op">=</span>yes</span></code></pre></div>
+<h2 id="vlc">vlc</h2>
+<p>I don’t know how to make <code>vlc</code> low latency, but it’s
+probably doable. <code>vlc</code> is pretty crossplatform so that’s
+good.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">vlc</span> http://<span class="va">$SERVER_IP</span>:8000</span></code></pre></div>
+<h1 id="setup-of-server-side">Setup Of Server Side</h1>
+<h2 id="mpd-config"><code>mpd</code> config</h2>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">music_directory</span>        <span class="st">&quot;~/music/&quot;</span> <span class="co"># or your music directory</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">playlist_directory</span>     <span class="st">&quot;~/.config/mpd/playlists&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">db_file</span>                <span class="st">&quot;~/.local/state/mpd/database&quot;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">log_file</span>               <span class="st">&quot;~/.local/state/mpd/log&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pid_file</span>               <span class="st">&quot;~/.local/state/mpd/pid&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">state_file</span>             <span class="st">&quot;~/.local/state/mpd/state&quot;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">sticker_file</span>           <span class="st">&quot;~/.local/state/mpd/sticker.sql&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">bind_to_address</span>        <span class="st">&quot;localhost&quot;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">port</span>                   <span class="st">&quot;6600&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># disable if server is remote</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#audio_output {</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#    type            &quot;pipewire&quot;       # or &quot;alsa&quot; or &quot;pipewire&quot;, depending on your system</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#    name            &quot;My Audio&quot;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#audio_output {</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#type               &quot;fifo&quot;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#name               &quot;my_fifo&quot;</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#path               &quot;/tmp/mpd.fifo&quot;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#format             &quot;44100:16:2&quot;</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="ex">audio_output</span> {</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">type</span>        <span class="st">&quot;httpd&quot;</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">name</span>        <span class="st">&quot;My HTTP Stream&quot;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="ex">encoder</span>     <span class="st">&quot;opus&quot;</span>      <span class="co"># optional</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="ex">port</span>        <span class="st">&quot;8000&quot;</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#   quality     &quot;5.0&quot;           # do not define if bitrate is defined</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="ex">bitrate</span>     <span class="st">&quot;256000&quot;</span>            <span class="co"># do not define if quality is defined</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="ex">format</span>      <span class="st">&quot;48000:16:2&quot;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="ex">always_on</span>       <span class="st">&quot;yes&quot;</span>           <span class="co"># prevent MPD from disconnecting all listeners when playback is stopped.</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="ex">tags</span>            <span class="st">&quot;yes&quot;</span>           <span class="co"># httpd supports sending tags to listening streams.</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
+<p>:&gt; [!NOTE] &gt; You might also need to create some directories
+since <code>mpd</code> won’t do it for you… &gt; And you might also need
+disable firewall on the port your hosting it on (if doing remote
+hosting… can’t guarantee security though)</p>
