@@ -78,7 +78,7 @@ audio_output {
 
 ```
 
-:> [!NOTE]
+> [!NOTE]
 > You might also need to create some directories since `mpd` won't do it for you...
 > And you might also need disable firewall on the port you're hosting it on (if doing remote hosting... can't guarantee security though)
 
@@ -177,7 +177,7 @@ A spigot (or something) plugin must kinda have the following directory structure
   </dependencies>
 </project>
 ```
-:> [!NOTE]
+> [!NOTE]
 > To find your paper server version (with the correct syntax and all that) do `/ver` or `/version` in the minecraft console
 
 `plugin.yml` is probably meant for the spigot or paper server to correctly do syntax error logging and for us to fill metadata about the plugin. It looks something like this:
