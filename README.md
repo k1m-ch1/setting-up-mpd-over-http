@@ -32,7 +32,7 @@ I don't know how to make `vlc` low latency, but it's probably doable. `vlc` is p
 vlc http://$SERVER_IP:8000
 ```
 
-or click ground a buncha menus then insert `http://$SERVER_IP:8000` or your port, etc...
+or open `vlc`, got to "media" > "open network stream" > insert `http://$SERVER_IP:8000` or your port, etc...
 
 # Setup Of Server Side
 
@@ -87,8 +87,8 @@ audio_output {
 This so called "plugin" was "made" by someone who can't code a single line of ` java`.
 - [x] wrapper around `mpc` for simple commands (commands with one argument)
 - [x] used `yt-dlp` to search, extract audio and add to mpc playlist
-- ~~[] security ~~
-- ~~[] errors, logs and feedback ~~
+~~ - [] security ~~
+~~ - [] errors, logs and feedback ~~
 
 ## Usage
 There are two commands `/mpc <arg1>` and `/mpc_add song title`
