@@ -87,8 +87,8 @@ audio_output {
 This so called "plugin" was "made" by someone who can't code a single line of ` java`.
 - [x] wrapper around `mpc` for simple commands (commands with one argument)
 - [x] used `yt-dlp` to search, extract audio and add to mpc playlist
-~~ - [] security ~~
-~~ - [] errors, logs and feedback ~~
+- ~~ [] security ~~
+- ~~ [] errors, logs and feedback ~~
 
 ## Usage
 There are two commands `/mpc <arg1>` and `/mpc_add song title`
