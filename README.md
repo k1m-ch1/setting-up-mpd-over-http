@@ -7,7 +7,7 @@
 
 ## `mpc` (highly recommended)
 
-Latency relatively tame. Recommnd because `mpc` is tailor-made for `mpd`.
+Latency relatively tame. Recommnd cuz `mpc` is tailor-made for `mpd`.
 
 To connect (where `$SERVER_IP` is an environmental variable, or just your ip, domain name, etc...):
 
@@ -19,20 +19,20 @@ Now the server should be in your playlist. We can use `ncmpcpp` to navigate to t
 
 ## `mpv` (second best)
 
-This settings seems to give the best latency.
+These settings seems to give the best latency.
 
 ```bash
 mpv http://$SERVER_IP:8000   --no-cache   --untimed   --no-audio-display   --gapless-audio=yes
 ```
 
-## vlc
+## `vlc`
 I don't know how to make `vlc` low latency, but it's probably doable. `vlc` is pretty crossplatform so that's good.
 
 ```bash
 vlc http://$SERVER_IP:8000
 ```
 
-or open `vlc`, got to "media" > "open network stream" > insert `http://$SERVER_IP:8000` or your port, etc...
+or open `vlc`, and go to "media" > "open network stream" > insert `http://$SERVER_IP:8000` or your port, etc...
 
 # Setup Of Server Side
 
@@ -80,7 +80,7 @@ audio_output {
 
 :> [!NOTE]
 > You might also need to create some directories since `mpd` won't do it for you...
-> And you might also need disable firewall on the port your hosting it on (if doing remote hosting... can't guarantee security though)
+> And you might also need disable firewall on the port you're hosting it on (if doing remote hosting... can't guarantee security though)
 
 # My Minecraft `mpc` plugin
 
